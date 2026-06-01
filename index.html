@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title">A las 8:45 PM - Sitio Informativo Oficial</title>
+    <style>
+        /* General Setup & Margins */
+        @page {
+            size: A4;
+            margin: 18mm 15mm;
+            background-color: #0b0c16; /* Deep midnight blue, matching the anime's urban vibe */
+            @bottom-right {
+                content: "Página " counter(page);
+                font-family: 'Helvetica Neue', Arial, sans-serif;
+                font-size: 8pt;
+                color: #535875;
+            }
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0b0c16;
+            color: #e2e4ed;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 10.5pt;
+            line-height: 1.6;
+        }
+
+        /* Full bleed decorative header on first page using negative margins */
+        .hero-banner {
+            margin: -18mm -15mm 25px -15mm;
+            padding: 35px 15mm;
+            background: linear-gradient(135deg, #171226 0%, #0b0c16 100%);
+            border-bottom: 3px solid #6b52a3; /* Elegant purple accent line */
+            text-align: center;
+        }
+
+        .hero-banner h1 {
+            margin: 0 0 8px 0;
+            font-size: 24pt;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(107, 82, 163, 0.6);
+        }
+
+        .hero-banner .tagline {
+            margin: 0;
+            font-size: 11pt;
+            font-style: italic;
+            color: #a3a9cc;
+            letter-spacing: 0.5px;
+        }
+
+        /* Core Structure */
+        h2 {
+            font-size: 14pt;
+            color: #8c72cf;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-left: 4px solid #6b52a3;
+            padding-left: 10px;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            font-size: 11.5pt;
+            color: #ffffff;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            page-break-after: avoid;
+            clear: both; /* Ensure headers don't overlap with floated elements */
+        }
+
+        p {
+            margin: 0 0 12px 0;
+            text-align: justify;
+            color: #c9cddb;
+        }
+
+        /* Layout via table display for absolute stability */
+        .section-table {
+            display: table;
+            width: 100%;
+            margin-bottom: 15px;
+            table-layout: fixed;
+        }
+
+        .section-row {
+            display: table-row;
+        }
+
+        .section-cell {
+            display: table-cell;
+            vertical-align: top;
+            padding-right: 15px;
+        }
+
+        .section-cell:last-child {
+            padding-right: 0;
+        }
+
+        /* Highlight Boxes */
+        .logline-box {
+            background-color: #141629;
+            border: 1px solid #232742;
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .logline-box p {
+            margin: 0;
+            font-style: italic;
+            color: #b8bed9;
+        }
+
+        /* Video Link Anchor Box styling */
+        .video-link-anchor {
+            text-decoration: none;
+            display: block;
+            margin: 15px 0 25px 0;
+            cursor: pointer;
+        }
+
+        .video-player-box {
+            background-color: #05060b;
+            border: 1px solid #6b52a3;
+            box-shadow: 0 0 15px rgba(107, 82, 163, 0.2);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .video-cover-wrapper {
+            position: relative;
+            width: 100%;
+            display: block;
+        }
+
+        .video-cover-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Absolute positioning simulator */
+        .video-overlay-info {
+            background: linear-gradient(180deg, rgba(5, 6, 11, 0.4) 0%, rgba(5, 6, 11, 0.9) 100%);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .video-icon-play {
+            font-size: 26pt;
+            color: #ff0055;
+            margin-bottom: 4px;
+            line-height: 1;
+            text-shadow: 0 0 10px rgba(255, 0, 85, 0.6);
+        }
+
+        .video-url-text {
+            font-family: monospace;
+            color: #bca6ff;
+            font-size: 9.5pt;
+            text-decoration: underline;
+            margin-top: 4px;
+        }
+
+        /* Technical Data Grid */
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            background-color: #141629;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .tech-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #1f223d;
+            font-size: 10pt;
+        }
+
+        .tech-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .tech-label {
+            font-weight: bold;
+            color: #8c72cf;
+            width: 30%;
+        }
+
+        .tech-value {
+            color: #e2e4ed;
+        }
+
+        /* New Gallery styling with real images */
+        .real-gallery-container {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .gallery-block {
+            margin-bottom: 30px;
+            overflow: hidden;
+            page-break-inside: avoid;
+        }
+
+        .gallery-block-header {
+            border-bottom: 2px solid #6b52a3;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+        }
+
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -8px;
+        }
+
+        .gallery-item-real {
+            flex: 1 1 calc(50% - 16px);
+            margin: 8px;
+            background-color: #141629;
+            border: 1px solid #232742;
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .gallery-item-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 2px;
+            margin-bottom: 8px;
+        }
+
+        .gallery-item-caption {
+            font-size: 9pt;
+            color: #b8bed9;
+            line-height: 1.4;
+            text-align: justify;
+        }
+
+        /* Specific formatting for the storyboard panels */
+        .storyboard-flex {
+            display: flex;
+            margin: -8px;
+        }
+        
+        .storyboard-panel {
+            flex: 1;
+            margin: 8px;
+            background-color: #141629;
+            border: 1px solid #232742;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .storyboard-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 2px;
+            margin-bottom: 8px;
+        }
+
+        /* Moodboard is large and single */
+        .moodboard-single {
+            background-color: #141629;
+            border: 1px solid #232742;
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .moodboard-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 2px;
+            margin-bottom: 8px;
+        }
+
+        /* Credits & University Section */
+        .credits-container {
+            background-color: #101224;
+            border: 1px solid #1f223d;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+            page-break-inside: avoid;
+        }
+
+        .credit-item {
+            margin-bottom: 10px;
+        }
+
+        .credit-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .credit-role {
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #7b81a8;
+            margin: 0;
+        }
+
+        .credit-name {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        /* University Branding Section */
+        .logo-footer {
+            margin-top: 25px;
+            border-top: 1px solid #232742;
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .brand-logo-img {
+            max-height: 55px;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 10px 25px;
+        }
+        
+        /* Math/Time Element Style Rule */
+        .math-time {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-weight: bold;
+            color: #bca6ff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Header / One-Page Banner -->
+    <div class="hero-banner">
+        <h1>A las 8:45 PM</h1>
+        <div class="tagline">Algunas historias no terminan por falta de amor, sino por llegar demasiado tarde.</div>
+    </div>
+
+    <!-- Sinopsis & Logline Section -->
+    <h2>Sinopsis del Proyecto</h2>
+    <div class="logline-box">
+        <p><strong>Logline:</strong> Una joven de vida milimétricamente organizada enfrenta la dolorosa ruptura de sus propias estructuras cuando se ve forzada a abordar el último autobús, dejando atrás al chico cuya caótica libertad la enseñó a amar, pero cuya constante impuntualidad terminó por agotar el tiempo.</p>
+    </div>
+    <p>
+        <strong>A las 8:45 PM</strong> es un cortometraje de drama urbano desarrollado bajo la estética del anime moderno. La narrativa profundiza en las complejidades de las relaciones contemporáneas a través del contraste absoluto entre sus protagonistas: Anna, una estudiante de perfil reservado aferrada a la rigidez del orden y los horarios; y Sora, un joven libre y desorganizado que vive al margen del reloj. Ambientado en una melancólica y lluviosa noche urbana, el paradero de autobuses se convierte en el escenario final donde el tiempo adquiere un peso definitivo, transformando un retraso rutinario en una despedida irrevocable.
+    </p>
+
+    <!-- Video Player Section integrated with user uploaded image as Poster / Thumbnail Cover -->
+    <h2>Reproductor Oficial</h2>
+    <a href="https://youtu.be/FrKdyK07S5c" target="_blank" class="video-link-anchor" title="Reproducir cortometraje en YouTube">
+        <div class="video-player-box">
+            <div class="video-cover-wrapper">
+                <img src="Portada.JPG" alt="Portada del Cortometraje A las 8:45 PM" class="video-cover-img">
+            </div>
+            <div class="video-overlay-info">
+                <div class="video-icon-play">▶</div>
+                <h3 style="margin: 0 0 3px 0; color: #ffffff;">Ver Cortometraje Completo</h3>
+                <p style="font-size: 9.5pt; color: #a3a9cc; margin: 0; text-align: center;">
+                    Haz clic en el póster para abrir la reproducción directa en YouTube
+                </p>
+                <div class="video-url-text">https://youtu.be/FrKdyK07S5c</div>
+            </div>
+        </div>
+    </a>
+
+    <!-- Technical Details Table -->
+    <h2>Ficha Técnica</h2>
+    <table class="tech-table">
+        <tr>
+            <td class="tech-label">Duración</td>
+            <td class="tech-value">01:13 min</td>
+        </tr>
+        <tr>
+            <td class="tech-label">Estilo Visual</td>
+            <td class="tech-value">Anime Moderno / Drama Urbano Contemporáneo</td>
+        </tr>
+        <tr>
+            <td class="tech-label">Formato de Salida</td>
+            <td class="tech-value">Video Digital de Alta Definición (H.264, 24fps)</td>
+        </tr>
+        <tr>
+            <td class="tech-label">Herramientas & Entorno</td>
+            <td class="tech-value">Pipeline de Producción Digital e Inteligencia Artificial Visual Avanzada</td>
+        </tr>
+        <tr>
+            <td class="tech-label">Fecha de Producción</td>
+            <td class="tech-value">Mayo de 2026</td>
+        </tr>
+    </table>
+
+    <!-- Production Visual Assets / New Integrated Gallery -->
+    <h2>Galería de Producción Visual</h2>
+    <div class="real-gallery-container">
+        
+        <!-- Concept Art Subsection -->
+        <h3>Hojas de Modelo (Concept Art)</h3>
+        <div class="gallery-block">
+            <div class="gallery-grid">
+                <div class="gallery-item-real">
+                    <img src="Concept Art Hanna.png" alt="Anna Character Sheet" class="gallery-item-image">
+                    <div class="gallery-item-caption">
+                        <strong>Anna:</strong> Estudiante reservada y metódica. El diseño enfatiza su rigidez estructural con trenzas ordenadas, gafas y uniforme conservador. El sutil degradado púrpura insinúa su mundo interior sensible.
+                    </div>
+                </div>
+                <div class="gallery-item-real">
+                    <img src="Concept Art Knave.png" alt="Sora Character Sheet" class="gallery-item-image">
+                    <div class="gallery-item-caption">
+                        <strong>Sora:</strong> Joven urbano, libre y caótico. Su diseño streetwear holgado y cabello desordenado contrastan con Anna. Comparte el acento púrpura en ojos y sudadera, unificando visualmente la conexión emocional de la pareja.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Storyboard Subsection -->
+        <h3>Storyboard: Paneles Técnicos</h3>
+        <div class="gallery-block">
+            <div class="storyboard-flex">
+                <div class="storyboard-panel">
+                    <img src="StoryBoard Panel 1.png" alt="Storyboard Panel 1" class="storyboard-image">
+                    <div class="gallery-item-caption">
+                        <strong>Panel 1:</strong> Establecimiento de la atmósfera fría y melancólica. Plano general de la avenida urbana bajo la lluvia intensa, iluminada por luces de neón borrosas, introduciendo la soledad de Anna.
+                    </div>
+                </div>
+                <div class="storyboard-panel">
+                    <img src="StoryBoard Panel 2.png" alt="Storyboard Panel 2" class="storyboard-image">
+                    <div class="gallery-item-caption">
+                        <strong>Panel 2:</strong> Un momento clave de la narrativa. Se detalla un elemento de tensión, posiblemente el reloj de bolsillo o la aproximación del autobús, rompiendo la inmovilidad de la escena inicial.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Moodboard Subsection -->
+        <h3>Moodboard / Inspiración Visual</h3>
+        <div class="gallery-block">
+            <div class="moodboard-single">
+                <img src="Moodboard.PNG" alt="Moodboard" class="moodboard-image">
+                <div class="gallery-item-caption">
+                    <strong>Moodboard:</strong> Referencia visual para la paleta de colores y la atmósfera. Define los tonos azules y morados saturados, la textura de la lluvia intensa sobre el asfalto y el metal del paradero, y el contraste emocional entre la soledad fría y los recuerdos cálidos.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Production Credits and Institutional Support -->
+    <h2>Créditos del Proyecto</h2>
+    <div class="credits-container">
+        <div class="section-table" style="margin-bottom: 0;">
+            <div class="section-row">
+                <div class="section-cell" style="width: 50%;">
+                    <div class="credit-item">
+                        <p class="credit-role">Autor & Dirección Creativa</p>
+                        <p class="credit-name">Hugo Armando Ramirez Sosa</p>
+                    </div>
+                </div>
+                <div class="section-cell" style="width: 50%;">
+                    <div class="credit-item">
+                        <p class="credit-role">Asesoría Académica</p>
+                        <p class="credit-name">César Octavio Guerra Guerrero</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- University & Program Logos Section -->
+        <div class="logo-footer">
+            <img src="IMAGOTIPO_UNACAR.PNG" alt="Logotipo UNACAR" class="brand-logo-img">
+            <img src="IDM-WHITE-1.png" alt="Logotipo IDM" class="brand-logo-img">
+        </div>
+    </div>
+
+</body>
+</html>
